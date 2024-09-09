@@ -1,16 +1,15 @@
 {
   "name": "dictionary-lb",
-  "version": "3.4.0",
-  "description": "Luxembourgish (or Letzeburgesch) spelling dictionary",
+  "version": "4.0.0",
+  "description": "Luxembourgish spelling dictionary",
   "license": "EUPL-1.1",
   "keywords": [
-    "spelling",
-    "myspell",
-    "hunspell",
     "dictionary",
+    "hunspell",
     "lb",
     "luxembourgish",
-    "letzeburgesch"
+    "myspell",
+    "spelling"
   ],
   "repository": "https://github.com/wooorm/dictionaries/tree/main/dictionaries/lb",
   "bugs": "https://github.com/wooorm/dictionaries/issues",
@@ -23,10 +22,13 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Thomas Beverley <tom.beverley101@gmail.com>"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
     "index.aff",
+    "index.d.ts",
+    "index.d.ts.map",
     "index.dic",
-    "index.d.ts"
+    "index.js"
   ]
 }

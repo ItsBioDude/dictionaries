@@ -1,14 +1,14 @@
 {
   "name": "dictionary-cy",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Welsh spelling dictionary",
   "license": "LGPL-3.0",
   "keywords": [
-    "spelling",
-    "myspell",
-    "hunspell",
-    "dictionary",
     "cy",
+    "dictionary",
+    "hunspell",
+    "myspell",
+    "spelling",
     "welsh"
   ],
   "repository": "https://github.com/wooorm/dictionaries/tree/main/dictionaries/cy",
@@ -22,10 +22,13 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Thomas Beverley <tom.beverley101@gmail.com>"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
     "index.aff",
+    "index.d.ts",
+    "index.d.ts.map",
     "index.dic",
-    "index.d.ts"
+    "index.js"
   ]
 }

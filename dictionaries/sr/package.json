@@ -1,15 +1,15 @@
 {
   "name": "dictionary-sr",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Serbian spelling dictionary",
   "license": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1 OR CC-BY-SA-3.0)",
   "keywords": [
-    "spelling",
-    "myspell",
-    "hunspell",
     "dictionary",
-    "sr",
-    "serbian"
+    "hunspell",
+    "myspell",
+    "serbian",
+    "spelling",
+    "sr"
   ],
   "repository": "https://github.com/wooorm/dictionaries/tree/main/dictionaries/sr",
   "bugs": "https://github.com/wooorm/dictionaries/issues",
@@ -22,10 +22,13 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Thomas Beverley <tom.beverley101@gmail.com>"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
     "index.aff",
+    "index.d.ts",
+    "index.d.ts.map",
     "index.dic",
-    "index.d.ts"
+    "index.js"
   ]
 }

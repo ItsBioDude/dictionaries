@@ -1,17 +1,17 @@
 {
   "name": "dictionary-en-au",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "description": "English (Australia) spelling dictionary",
   "license": "(MIT AND BSD)",
   "keywords": [
-    "spelling",
-    "myspell",
-    "hunspell",
+    "au",
+    "australia",
     "dictionary",
     "en",
-    "au",
     "english",
-    "australia"
+    "hunspell",
+    "myspell",
+    "spelling"
   ],
   "repository": "https://github.com/wooorm/dictionaries/tree/main/dictionaries/en-AU",
   "bugs": "https://github.com/wooorm/dictionaries/issues",
@@ -24,10 +24,13 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Thomas Beverley <tom.beverley101@gmail.com>"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
     "index.aff",
+    "index.d.ts",
+    "index.d.ts.map",
     "index.dic",
-    "index.d.ts"
+    "index.js"
   ]
 }

@@ -1,18 +1,18 @@
 {
   "name": "dictionary-en-gb",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "description": "English (United Kingdom) spelling dictionary",
   "license": "(MIT AND BSD)",
   "keywords": [
-    "spelling",
-    "myspell",
-    "hunspell",
     "dictionary",
     "en",
-    "gb",
     "english",
-    "united",
-    "kingdom"
+    "gb",
+    "hunspell",
+    "kingdom",
+    "myspell",
+    "spelling",
+    "united"
   ],
   "repository": "https://github.com/wooorm/dictionaries/tree/main/dictionaries/en-GB",
   "bugs": "https://github.com/wooorm/dictionaries/issues",
@@ -25,10 +25,13 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Thomas Beverley <tom.beverley101@gmail.com>"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
     "index.aff",
+    "index.d.ts",
+    "index.d.ts.map",
     "index.dic",
-    "index.d.ts"
+    "index.js"
   ]
 }

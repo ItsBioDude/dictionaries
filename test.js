@@ -1,89 +1,84 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import assert from 'node:assert'
-import test from 'tape'
-import {toVFile} from 'to-vfile'
-import {isHidden} from 'is-hidden'
-import isUtf8 from 'utf-8-validate'
+import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
+import test from 'node:test'
 import {bcp47Normalize} from 'bcp-47-normalize'
+import isUtf8 from 'utf-8-validate'
+import en from './dictionaries/en/index.js'
 
-const own = {}.hasOwnProperty
+test('core', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(
+      Object.keys(await import('./dictionaries/en/index.js')).sort(),
+      ['default']
+    )
+  })
+})
 
-const root = 'dictionaries'
+test('en', async function (t) {
+  await t.test('should expose a dictionary', function () {
+    assert.deepEqual(Object.keys(en).sort(), ['aff', 'dic'])
+  })
 
-const checks = {
-  'Should have a canonical BCP-47 tag': bcp47,
-  'All required files should exist': requiredFiles,
-  'All files should be in UTF-8': utf8
-}
+  await t.test('should expose a typed array as `en.aff`', function () {
+    assert.ok(en.aff instanceof Uint8Array)
+  })
 
-function bcp47(name) {
-  assert.strictEqual(
-    name,
-    bcp47Normalize(name, {warning: warn}),
-    name + ' should be a canonical, normal BCP-47 tag'
-  )
+  await t.test('should expose a typed array as `en.dic`', function () {
+    assert.ok(en.dic instanceof Uint8Array)
+  })
+})
 
-  function warn(reason) {
-    console.log('warning:%s: %s', name, reason)
-  }
-}
-
-function utf8(name) {
-  const dirname = path.join(root, name)
-  const files = fs.readdirSync(dirname)
+test('dictionaries', async function (t) {
+  const base = new URL('dictionaries/', import.meta.url)
+  const folders = await fs.readdir(base)
   let index = -1
 
-  while (++index < files.length) {
-    const d = files[index]
-    if (isHidden(d)) continue
-    const file = toVFile.readSync(path.join(dirname, d))
-    assert.ok(isUtf8(file.value), file.basename + ' should be utf8')
-  }
-}
+  while (++index < folders.length) {
+    const folder = folders[index]
 
-function requiredFiles(name) {
-  const dirname = path.join(root, name)
-  const files = fs.readdirSync(dirname).filter((d) => !isHidden(d))
-  const paths = [
-    'index.dic',
-    'index.aff',
-    'readme.md',
-    'index.js',
-    'index.d.ts',
-    'package.json'
-  ]
-  let index = -1
+    if (folder.charAt(0) === '.') continue
 
-  while (++index < paths.length) {
-    const d = paths[index]
-    assert.notStrictEqual(files.indexOf(d), -1, 'should have `' + d + '`')
-  }
-}
+    await t.test(folder, async function (t) {
+      const folderUrl = new URL(folder + '/', base)
 
-test('dictionaries', (t) => {
-  const files = fs.readdirSync(root)
-  let index = -1
+      await t.test('should be a canonical, normal BCP-47 tag', function () {
+        assert.equal(
+          folder,
+          bcp47Normalize(folder, {
+            warning(reason) {
+              console.log('warning:%s: %s', folder, reason)
+            }
+          })
+        )
+      })
 
-  while (++index < files.length) {
-    const d = files[index]
+      await t.test('should contain all required files', async function () {
+        const basenames = [
+          'index.dic',
+          'index.aff',
+          'readme.md',
+          'index.js',
+          'index.d.ts',
+          'package.json'
+        ]
 
-    if (isHidden(d)) continue
+        await Promise.all(
+          basenames.map(async function (d) {
+            return fs.access(new URL(d, folderUrl), fs.constants.F_OK)
+          })
+        )
+      })
 
-    t.test(d, (st) => {
-      let key
+      await t.test('should contain UTF-8', async function () {
+        const files = await fs.readdir(folderUrl)
 
-      for (key in checks) {
-        if (!own.call(checks, key)) continue
-
-        st.doesNotThrow(() => {
-          checks[key](d)
-        }, key)
-      }
-
-      st.end()
+        await Promise.all(
+          files.map(async function (d) {
+            const buf = await fs.readFile(new URL(d, folderUrl))
+            assert(isUtf8(buf))
+          })
+        )
+      })
     })
   }
-
-  t.end()
 })

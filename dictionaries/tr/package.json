@@ -1,13 +1,13 @@
 {
   "name": "dictionary-tr",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Turkish spelling dictionary",
   "license": "MIT",
   "keywords": [
-    "spelling",
-    "myspell",
-    "hunspell",
     "dictionary",
+    "hunspell",
+    "myspell",
+    "spelling",
     "tr",
     "turkish"
   ],
@@ -22,10 +22,13 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Thomas Beverley <tom.beverley101@gmail.com>"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
     "index.aff",
+    "index.d.ts",
+    "index.d.ts.map",
     "index.dic",
-    "index.d.ts"
+    "index.js"
   ]
 }
